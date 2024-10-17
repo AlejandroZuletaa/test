@@ -17,7 +17,6 @@ export class NavBarComponent {
 
   constructor(private GatewayService: GatewayService, private DeleteUserService:DeleteUserService, private ModalControllerService:ModalControllerService) {}
 
-
   itemsNav = [
     {
       action: this.addPerson.bind(this), // referenciar la función directamente
