@@ -1,0 +1,19 @@
+<header>
+
+  <div class="grid grid-cols-2 h-full place-content-center" id="slogan">
+    <img class="m-auto h-10 w-auto" src = "https://flowbite.com/docs/images/logo.svg" alt="cargando">
+    <h1>Test</h1>
+  </div>
+
+  <nav class="nav-bar w-full h-full">
+    <ul id="menu-nav-bar">
+      <li *ngFor="let item of itemsNav">
+         <button (click)="item.action()">{{ item.option }}</button>
+      </li>
+    </ul>
+  </nav>
+
+  <app-search></app-search>
+
+  <button id="get-start">Get started</button>
+</header>

@@ -1,0 +1,52 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@icons/*": ["src/assets/icons/*"],
+      "@image/*": ["src/assets/imagenes/*"],
+      "@static/*": ["src/assets/static/*"],
+      "@services/*":["src/core/services/*"],
+      "@molecules/*" : ["src/shared/components/molecules/*"],    
+      "@atoms/*": ["src/shared/components/atoms/*"],
+      "@organisms/*": ["src/shared/components/organisms/*"],
+      "@models/*" : ["src/core/models/*"],
+      "@templates/*": ["src/shared/components/templates/*"],
+      "@fonts/*":["src/styles/fonts/*"],
+      "@functions/*":["src/styles/functions/*"],
+      "@inherence/*":["src/styles/inherence/*"],
+      "@vendors/*":["src/styles/vendors/*"],
+      "@colors/*" : ["src/styles/colors/*"],
+      "@feature/*": ["src/features/*"],
+      "@mixins/*":["src/styles/mixins/*"],
+      "@interface/*":["src/core/interface/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
