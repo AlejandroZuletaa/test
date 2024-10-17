@@ -7,11 +7,12 @@ import { GatewayService } from '@services/gateway.service';
 import { SearchComponent } from '@organisms/search/search.component';
 import { SearchService } from '@services/search.service';
 import { Subscription } from 'rxjs';
+import { EmptyStateComponent } from '@organisms/empty-state/empty-state.component';
 
 @Component({
   selector: 'app-table-user',
   standalone: true,
-  imports: [MatIconModule, CommonModule, SearchComponent],
+  imports: [MatIconModule, CommonModule, SearchComponent,EmptyStateComponent],
   templateUrl: './table-user.component.html',
   styleUrl: './table-user.component.scss',
 })

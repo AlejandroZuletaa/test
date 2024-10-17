@@ -1,13 +1,8 @@
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 m-auto">
-  <table class="w-full text-sm text-left text-gray-800">
-    <thead class="text-xs text-gray-800 uppercase bg-blue-200 transition duration-300 rounded-t-lg">
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg w-5/6 m-auto max-h-80 ">
+  <table class="w-full text-sm text-left text-gray-800 border">
+    <thead class="text-xs text-gray-800 uppercase bg-blue-200 sticky top-0">
       <tr>
-        <th scope="col" class="p-3">
-          <div class="flex items-center">
-            <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-            <label for="checkbox-all-search" class="sr-only">Seleccionar todos</label>
-          </div>
-        </th>
+        <th></th><!-- El th de los select no borrar -->
         <th scope="col" class="px-4 py-2">Name</th>
         <th scope="col" class="px-4 py-2">Email</th>
         <th scope="col" class="px-4 py-2">Phone</th>
@@ -20,11 +15,11 @@
         <td class="w-4 p-3">
           <div class="flex items-center">
             <input 
-            id="checkbox-table-search-{{item.id}}" 
-            type="checkbox" 
-            class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            (change)="onCheckboxChange($event, item)">
-          <label for="checkbox-table-search-{{item.id}}" class="sr-only">Seleccionar</label>
+              id="checkbox-table-search-{{item.id}}" 
+              type="checkbox" 
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              (change)="onCheckboxChange($event, item)">
+            <label for="checkbox-table-search-{{item.id}}" class="sr-only">Seleccionar</label>
           </div>
         </td>
         <th scope="row" class="flex items-center px-4 py-2 text-gray-900">
@@ -47,3 +42,5 @@
     </tbody>
   </table>
 </div>
+
+<app-empty-state *ngIf="filteredUsers.length === 0"></app-empty-state>
