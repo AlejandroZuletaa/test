@@ -1,0 +1,13 @@
+#btn-close {
+  width: auto;
+  height: auto;
+
+
+  &:hover {
+    border: 1px solid red; // Borde rojo en hover
+    filter: drop-shadow(2px 2px 30px red);
+    transition:  0.1s ease-in-out; // Transición suave
+    border-radius: 20px;
+    padding: 1px;
+  }
+}

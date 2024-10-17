@@ -33,13 +33,7 @@
       "@organisms/*": ["src/shared/components/organisms/*"],
       "@models/*" : ["src/core/models/*"],
       "@templates/*": ["src/shared/components/templates/*"],
-      "@fonts/*":["src/styles/fonts/*"],
-      "@functions/*":["src/styles/functions/*"],
-      "@inherence/*":["src/styles/inherence/*"],
-      "@vendors/*":["src/styles/vendors/*"],
-      "@colors/*" : ["src/styles/colors/*"],
       "@feature/*": ["src/features/*"],
-      "@mixins/*":["src/styles/mixins/*"],
       "@interface/*":["src/core/interface/*"]
     }
   },

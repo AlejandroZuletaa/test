@@ -1,0 +1,68 @@
+.overlay {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5); // Color rojo con opacidad
+  backdrop-filter: blur(.1px); // Efecto de desenfoque
+  z-index: 1;
+  display: flex; // Para centrar el contenido del modal si es necesario
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 80vh;
+  background-color: #fff;
+  box-shadow: 5px 5px 60px #8a8a8a;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto 1fr; // La primera fila ajusta su altura automáticamente
+  grid-template-areas: 
+    "header header" // La primera fila ocupa ambas columnas
+    "content content"; // La segunda fila ocupa ambas columnas
+  border-radius: 8px;
+  padding: 20px 0;
+
+  .header {
+    grid-area: header; // Asignamos el área
+    display: grid;
+    grid-template-columns: 60% 40%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      font-size: 1.5rem;
+      text-align: center;
+      text-transform: capitalize;
+      text-decoration: solid;
+      font-weight: bold;
+      text-shadow: 1px 1px 15px rgb(117, 117, 117);
+    }
+
+    #btn-close {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      width: 80%;
+      margin: 0 auto;
+    }
+  }
+
+  .content {
+    grid-area: content; // Asignamos el área
+    display: grid;
+    grid-template-columns: repeat(2,50%);
+  }
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,20 @@
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div *ngFor="let field of fields" class="mb-4">
+      <label [for]="field.id" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>
+      <input
+        [type]="field.type"
+        [id]="field.id"
+        [formControlName]="field.formControl"
+        class="input"
+      />
+      <div *ngIf="f[field.formControl].invalid && (f[field.formControl].dirty || f[field.formControl].touched)">
+        <p class="error-message">{{ field.errorMessage }}</p>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid" class="button">
+      Enviar
+    </button>
+  </form>
+</div>

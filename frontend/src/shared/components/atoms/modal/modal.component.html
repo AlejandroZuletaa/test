@@ -1,0 +1,11 @@
+<div class="overlay" *ngIf="(modalService.isOpen$ | async)"></div>
+
+<div class="modal" *ngIf="(modalService.isOpen$ | async)">
+  <div class="header">
+    <h2>{{ title }}</h2>
+    <app-close-modal id="btn-close"></app-close-modal>
+  </div>
+  <div class="content">
+    <ng-content></ng-content>
+  </div>
+</div>

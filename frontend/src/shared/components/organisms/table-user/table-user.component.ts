@@ -19,7 +19,7 @@ export class TableUserComponent implements OnInit, OnDestroy {
   users: UserInterface[] = []; // los usuarios
   filteredUsers: UserInterface[] = []; // Lista de usuarios filtrados
   selectedUsers: UserInterface[] = []; // Lista de usuarios seleccionados
-  private subscriptions: Subscription[] = [];
+  private subscriptions: Subscription[] = []; // suscripciones 
 
   constructor(
     private GatewayService: GatewayService,
@@ -62,7 +62,7 @@ export class TableUserComponent implements OnInit, OnDestroy {
       });
   }
 
-  filterUsers(searchTerm: string): void {
+  filterUsers(searchTerm: string): void { // buscador
     // Filtra los usuarios
     if (searchTerm.trim() === '') {
       // Verifica si el término de búsqueda está vacío

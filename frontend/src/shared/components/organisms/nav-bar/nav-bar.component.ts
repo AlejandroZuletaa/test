@@ -1,3 +1,4 @@
+import { ModalControllerService } from '@services/modal-controller.service';
 import { DeleteUserService } from '@services/delete-user.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -14,7 +15,7 @@ import { GatewayService } from '@services/gateway.service';
 export class NavBarComponent {
   imgIcon = '../../../../assets/static/images.png'
 
-  constructor(private GatewayService: GatewayService, private DeleteUserService:DeleteUserService) {}
+  constructor(private GatewayService: GatewayService, private DeleteUserService:DeleteUserService, private ModalControllerService:ModalControllerService) {}
 
 
   itemsNav = [
@@ -29,7 +30,7 @@ export class NavBarComponent {
   ]
 
   addPerson(): void {
-    console.log('addPerson');
+    this.ModalControllerService.openModal();
   }
 
   deletePerson(): void {

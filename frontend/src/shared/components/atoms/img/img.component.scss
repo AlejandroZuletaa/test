@@ -1,0 +1,13 @@
+@import 'src/styles/inherence/_totalSize.scss';
+@import 'src/styles/inherence/_flexCenter.scss';
+
+
+#figure-img {
+  @extend %totalSize;
+  @extend %flexCenter;
+
+  img {
+    width: 80%;
+    height: 80%;
+  }
+}

@@ -42,4 +42,14 @@ export class GatewayService {
       this.SweetalertService.error('Oops algo fallo', 'Ocurrió un error');
     }
   }
+
+  async addUser (user:UserInterface):Promise<void>{
+    try {
+      await this.UserHttpService.addUser(user);
+      this.SweetalertService.success('Usuario agregado con éxito');
+    } catch (error) {
+      console.error('Error al agregar el usuario:', error);
+      this.SweetalertService.error('Oops algo fallo', 'Ocurrió un error');
+    }
+  }
 }
