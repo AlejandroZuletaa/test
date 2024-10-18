@@ -1,11 +1,23 @@
-<div class="overlay" *ngIf="(modalService.isOpen$ | async)"></div>
+<div class="overlay" *ngIf="(modalService.modalState$ | async)?.isOpen"></div>
 
-<div class="modal" *ngIf="(modalService.isOpen$ | async)">
+<div class="modal" *ngIf="(modalService.modalState$ | async)?.isOpen">
   <div class="header">
-    <h2>{{ title }}</h2>
-    <app-close-modal id="btn-close"></app-close-modal>
+    <h2 *ngIf="(modalService.modalState$ | async)?.type === 'edit'">Edit User</h2>
+    <h2 *ngIf="(modalService.modalState$ | async)?.type === 'register'">Register User</h2>
+    <app-close-modal id="btn-close" (click)="modalService.closeModal()"></app-close-modal>
   </div>
+
   <div class="content">
-    <ng-content></ng-content>
+    <app-img [srcImg]="imageUrl" [altImg]="imgAlt"></app-img>
+
+    <!-- Mostrar formulario con los datos del usuario si es edición -->
+    <ng-container *ngIf="(modalService.modalState$ | async)?.type === 'edit'">
+      <app-form [userData]="selectedUser"></app-form>
+    </ng-container>
+
+    <!-- Mostrar formulario vacío si es registro -->
+    <ng-container *ngIf="(modalService.modalState$ | async)?.type === 'register'">
+      <app-form></app-form>
+    </ng-container>
   </div>
 </div>

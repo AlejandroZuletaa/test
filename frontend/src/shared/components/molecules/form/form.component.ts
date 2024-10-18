@@ -1,5 +1,5 @@
 import { GatewayService } from '@services/gateway.service';
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { InputComponent } from '@atoms/input/input.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -14,13 +14,14 @@ import { ModalControllerService } from '@services/modal-controller.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent {
+export class FormComponent implements OnInit {
+  @Input() userData?: UserInterface; // Datos del usuario a editar (opcional)
   form: FormGroup; // Grupo de controles de formulario
 
   // Definición de los campos del formulario
   fields = [
     {
-      label: 'Nombre',
+      label: 'name',
       type: 'text',
       id: 'name',
       formControl: 'name',
@@ -28,7 +29,7 @@ export class FormComponent {
       errorMessage: 'El nombre es requerido.',
     },
     {
-      label: 'Correo Electrónico',
+      label: 'Email',
       type: 'email',
       id: 'email',
       formControl: 'email',
@@ -36,7 +37,7 @@ export class FormComponent {
       errorMessage: 'El correo es requerido y debe ser un correo válido.',
     },
     {
-      label: 'Teléfono',
+      label: 'Phone',
       type: 'text',
       id: 'phone',
       formControl: 'phone',
@@ -44,7 +45,7 @@ export class FormComponent {
       errorMessage: 'El teléfono es requerido y debe tener 10 dígitos.',
     },
     {
-      label: 'Edad',
+      label: 'Age',
       type: 'text',
       id: 'age',
       formControl: 'age',
@@ -55,34 +56,48 @@ export class FormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private GatewayService: GatewayService,
-    private ModalControllerService: ModalControllerService
+    private gatewayService: GatewayService,
+    private modalControllerService: ModalControllerService,
+    private cdr: ChangeDetectorRef // Agregar ChangeDetectorRef
   ) {
-    this.form = this.fb.group({}); // Inicializa el formulario
-    // Añade controles al formulario basándose en la definición de campos
+    this.form = this.fb.group({});
+  }
+
+  ngOnInit() {
+    // Inicializa el formulario
     this.fields.forEach((field) => {
       this.form.addControl(
         field.formControl,
         this.fb.control('', field.validation)
       );
     });
+
+    // Si hay datos de usuario, carga los valores en el formulario
+    if (this.userData) {
+      this.form.patchValue({
+        name: this.userData.name,
+        email: this.userData.email,
+        phone: this.userData.phone,
+        age: this.userData.age,
+      });
+    }
   }
 
   // Método para manejar el envío del formulario
   onSubmit() {
     if (this.form.valid) {
-      // Verifica si el formulario es válido
-      const user: UserInterface = {
-        id: Math.floor(Math.random() * 10000), // Genera un ID aleatorio
-        name: this.form.value.name,
-        email: this.form.value.email,
-        phone: this.form.value.phone,
-        age: this.form.value.age,
-      };
+      const user: UserInterface = this.userData
+        ? { ...this.userData, ...this.form.value } // Actualiza los datos
+        : { id: Math.floor(Math.random() * 10000), ...this.form.value }; // Nuevo usuario
 
-      this.GatewayService.addUser(user); // Envía el usuario al servicio
-      this.ModalControllerService.closeModal(); // Cierra el modal
-      this.form.reset(); // Limpia el formulario después de enviar
+      if (this.userData) {
+        this.gatewayService.updateUser(user); // Lógica para actualizar
+      } else {
+        this.gatewayService.addUser(user); // Lógica para agregar
+      }
+
+      this.modalControllerService.closeModal();
+      this.form.reset();
     }
   }
 

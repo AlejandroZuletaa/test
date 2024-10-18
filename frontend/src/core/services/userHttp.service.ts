@@ -59,8 +59,16 @@ export class UserHttpService {
   }
 
   async deleteSelectedUsers(users: UserInterface[]): Promise<void> { // elimina varios usuarios
-    this.users = this.users.filter((user) => !users.includes(user));
-    console.log(this.users);
-    
+    this.users = this.users.filter((user) => !users.includes(user)); 
+  }
+
+  async updateUser(updatedUser:UserInterface): Promise<void> { // actualizar el usuario 
+    const index = this.users.findIndex(user => user.id === updatedUser.id); // Encuentra el índice del usuario a actualizar
+
+    if (index !== -1) {
+        this.users[index] = { ...this.users[index], ...updatedUser }; // Actualiza el usuario con los nuevos datos
+    } else {
+        throw new Error('User not found'); // Lanza un error si el usuario no se encuentra
+    }
   }
 }

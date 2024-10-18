@@ -29,7 +29,7 @@ export class NavBarComponent {
   ]
 
   addPerson(): void {
-    this.ModalControllerService.openModal();
+    this.ModalControllerService.openModal('register');
   }
 
   deletePerson(): void {

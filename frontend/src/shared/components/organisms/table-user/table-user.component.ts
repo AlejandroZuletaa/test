@@ -1,3 +1,5 @@
+import { UpdateUserService } from '@services/update-user.service';
+import { ModalControllerService } from '@services/modal-controller.service';
 import { DeleteUserService } from '@services/delete-user.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -25,7 +27,9 @@ export class TableUserComponent implements OnInit, OnDestroy {
   constructor(
     private GatewayService: GatewayService,
     private searchService: SearchService,
-    private DeleteUserService: DeleteUserService
+    private DeleteUserService: DeleteUserService,
+    private ModalControllerService:ModalControllerService,
+    private UpdateUserService:UpdateUserService
   ) {}
 
   ngOnInit(): void { // inicializador de funciones
@@ -105,6 +109,11 @@ export class TableUserComponent implements OnInit, OnDestroy {
     // elimina varios usuarios
     this.selectedUsers = []; // Limpiar la lista de seleccionados
     this.loadUsers();
+  }
+
+  openModalUpdate(user: UserInterface): void {
+    this.UpdateUserService.setInfo(user); // enviamos la información del usuario 
+    this.ModalControllerService.openModal('edit'); // Abre el modal con los datos del usuario
   }
 
   ngOnDestroy(): void { // Desuscribirse de todas las suscripciones al destruir el componente

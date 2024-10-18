@@ -52,4 +52,14 @@ export class GatewayService {
       this.SweetalertService.error('Oops algo fallo', 'Ocurrió un error');
     }
   }
+
+  async updateUser (user:UserInterface):Promise<void> { 
+    try {
+      await this.UserHttpService.updateUser(user);
+      this.SweetalertService.success('Usuario actualizado con éxito');
+    } catch (error) {
+      console.error('Error al actualizar el usuario:', error);
+      this.SweetalertService.error('Oops algo fallo', 'Ocurrió un error');
+    }
+  }
 }
