@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^8.3.1",
+    "express": "^4",
+    "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@cap-js/cds-typer": ">=0.1",
+    "@cap-js/cds-types": "^0.6",
+    "@cap-js/sqlite": "^1",
+    "@types/node": "^20",
+    "@types/uuid": "^10.0.0",
+    "nodemon": "^3.1.7",
+    "typescript": "^5"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db.sqlite"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "dev": "nodemon --watch srv --watch db --exec cds-serve -e cds,js,json,ts,routes.cds,cds",
+    "watch": "cds-ts w"
+  },
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  }
+}
