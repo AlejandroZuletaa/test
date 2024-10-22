@@ -13,7 +13,7 @@ module.exports = async function cds_server(options) {
   app.use(bodyParser.json());
 
   const corsOptions = {
-    origin:'http://localhost:4200', // Orígenes permitidos
+    origin:origin, // Orígenes permitidos
     optionsSuccessStatus: 200, // Código de éxito para solicitudes preflight
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Métodos permitidos
     allowedHeaders: ["Content-Type", "Authorization"], // Cabeceras permitidas
