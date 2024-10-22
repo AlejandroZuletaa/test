@@ -23,32 +23,32 @@ export class FormComponent implements OnInit {
     {
       label: 'name',
       type: 'text',
-      id: 'name',
-      formControl: 'name',
+      id: 'Name',
+      formControl: 'Name',
       validation: [Validators.required],
       errorMessage: 'El nombre es requerido.',
     },
     {
       label: 'Email',
       type: 'email',
-      id: 'email',
-      formControl: 'email',
+      id: 'Email',
+      formControl: 'Email',
       validation: [Validators.required, Validators.email],
       errorMessage: 'El correo es requerido y debe ser un correo válido.',
     },
     {
       label: 'Phone',
       type: 'text',
-      id: 'phone',
-      formControl: 'phone',
+      id: 'Phone',
+      formControl: 'Phone',
       validation: [Validators.required, Validators.pattern(/^\d{10}$/)],
       errorMessage: 'El teléfono es requerido y debe tener 10 dígitos.',
     },
     {
       label: 'Age',
       type: 'text',
-      id: 'age',
-      formControl: 'age',
+      id: 'Age',
+      formControl: 'Age',
       validation: [Validators.required, Validators.min(1)],
       errorMessage: 'La edad es requerida y debe ser mayor a 0.',
     },
@@ -58,7 +58,6 @@ export class FormComponent implements OnInit {
     private fb: FormBuilder,
     private gatewayService: GatewayService,
     private modalControllerService: ModalControllerService,
-    private cdr: ChangeDetectorRef // Agregar ChangeDetectorRef
   ) {
     this.form = this.fb.group({});
   }
@@ -75,10 +74,10 @@ export class FormComponent implements OnInit {
     // Si hay datos de usuario, carga los valores en el formulario
     if (this.userData) {
       this.form.patchValue({
-        name: this.userData.name,
-        email: this.userData.email,
-        phone: this.userData.phone,
-        age: this.userData.age,
+        Name: this.userData.Name,
+        Email: this.userData.Email,
+        Phone: this.userData.Phone,
+        Age: this.userData.Age,
       });
     }
   }

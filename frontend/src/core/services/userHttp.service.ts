@@ -1,74 +1,103 @@
 import { Injectable } from '@angular/core';
 import { UserInterface } from 'src/core/interface/userModel';
+import { environment } from 'src/enviroment/environments';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { lastValueFrom, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserHttpService {
+  private url = environment.API_URL;
+  private user = 'odata/v4/user/';
+
   // Creación del arreglo de usuarios
-  users: UserInterface[] = [
-    {
-      id: 1,
-      name: 'Neil Sims',
-      email: 'neil.sims@example.com',
-      phone: 3216549870,
-      age: 29,
-    },
-    {
-      id: 2,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      phone: 1234567890,
-      age: 35,
-    },
-    {
-      id: 3,
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      phone: 9876543210,
-      age: 28,
-    },
-    {
-      id: 4,
-      name: 'Alice Johnson',
-      email: 'alice.johnson@example.com',
-      phone: 4561237890,
-      age: 32,
-    },
-    {
-      id: 5,
-      name: 'Bob Brown',
-      email: 'bob.brown@example.com',
-      phone: 6543219870,
-      age: 40,
-    },
-  ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  async getUser() { // trae todos los usuarios
-    return this.users;
+  getUser(): Observable<UserInterface[]> {
+    return this.http
+      .get<{ value: UserInterface[] }>(`${this.url}${this.user}getAllUsers`)
+      .pipe(
+        map((response) => response.value) // Transforma la respuesta para que solo retorne los valores del campo `value`
+      );
   }
 
-  async deleteUserId(id: number): Promise<void> { // elimina un usuario por id
-    this.users = this.users.filter((user) => user.id !== id);
+  async deleteUserId(id: string): Promise<void> {
+    // elimina un usuario por id
+    try {
+      await lastValueFrom(
+        this.http.post<{ message: string }>(
+          `${this.url}${this.user}deleteUser`,
+          { ID: id }
+        )
+      );
+      // Aquí podrías manejar algún mensaje de éxito o actualización de tu estado
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+      throw new Error('Ocurrió un error');
+    }
   }
 
-  async addUser(user: UserInterface): Promise<void> { // agrega un usuario
-    this.users.push(user);
+  async addUser(user: UserInterface): Promise<void> {
+    // Agregar un usuario
+    try {
+      await lastValueFrom(
+        this.http.post<{ message: string }>(
+          `${this.url}${this.user}registerUser`,
+          {
+            Name: user.Name,
+            Email: user.Email,
+            Phone: user.Phone,
+            Age: user.Age,
+          }
+        )
+      );
+    } catch (error) {
+      console.log('Error al agregar un Usuario', error);
+      throw new Error('Ocurrió un error');
+    }
   }
 
-  async deleteSelectedUsers(users: UserInterface[]): Promise<void> { // elimina varios usuarios
-    this.users = this.users.filter((user) => !users.includes(user)); 
+  async deleteSelectedUsers(users: UserInterface[]): Promise<void> {
+    // Extraer los IDs de los usuarios seleccionados
+    const ids = users.map((user) => user.ID);
+
+    // elimina varios usuarios
+    try {
+      await lastValueFrom(
+        this.http.post<{ message: string }>(
+          `${this.url}${this.user}deleteUsersIds`,
+          {
+            ids: ids,
+          }
+        )
+      );
+      // Aquí podrías manejar algún mensaje de éxito o actualización de tu estado
+    } catch (error) {
+      console.error('Error al eliminar el usuario:', error);
+      throw new Error('Ocurrió un error');
+    }
   }
 
-  async updateUser(updatedUser:UserInterface): Promise<void> { // actualizar el usuario 
-    const index = this.users.findIndex(user => user.id === updatedUser.id); // Encuentra el índice del usuario a actualizar
-
-    if (index !== -1) {
-        this.users[index] = { ...this.users[index], ...updatedUser }; // Actualiza el usuario con los nuevos datos
-    } else {
-        throw new Error('User not found'); // Lanza un error si el usuario no se encuentra
+  async updateUser(updatedUser: UserInterface): Promise<void> {
+    // actualizar el usuario
+    try {
+      await lastValueFrom(
+        this.http.post<{ message: string }>(
+          `${this.url}${this.user}updateUser`,
+          {
+            ID: updatedUser.ID,
+            Name: updatedUser.Name,
+            Email: updatedUser.Email,
+            Phone: updatedUser.Phone,
+            Age: updatedUser.Age,
+          }
+        )
+      );
+    } catch (error) {
+      console.error('Error al actualizar el usuario', error);
+      throw new Error('Ocurrió un error');
     }
   }
 }

@@ -21,7 +21,6 @@ service UserService @(impl: './user.service') {
     action getAllUsers() returns array of Users;
 
     // Definicion de la accion update por ID
-
     action updateUser(
         ID:String,
         Name: String, 
@@ -30,4 +29,7 @@ service UserService @(impl: './user.service') {
         Age: Integer
         
     ) returns String;
+
+    action deleteUsersIds(ids: array of UUID) returns String;
+
 }

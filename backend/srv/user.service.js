@@ -1,11 +1,12 @@
 const cds = require("@sap/cds");
+const cors = require("cors");
 
 module.exports = cds.service.impl(async function () {
   const { Users } = this.entities;
-
   // Lógica para registerUser
   this.on("registerUser", async (req) => {
     const { Name, Email, Phone, Age } = req.data;
+
     const existingUser = await SELECT.one
       .from(Users)
       .where({ Email: Email.toLowerCase() });
@@ -20,6 +21,7 @@ module.exports = cds.service.impl(async function () {
       Phone,
       Age,
     };
+
     await INSERT.into(Users).entries(newUser);
     req.reply("Usuario creado con éxito");
   });
@@ -42,7 +44,7 @@ module.exports = cds.service.impl(async function () {
   // Lógica para getAllUsers
   this.on("getAllUsers", async (req) => {
     const allUsers = await SELECT.from(Users);
-    req.reply(`Usuarios encontrados con éxito ${allUsers}`);
+    req.reply(allUsers);
   });
 
   // Lógica para updateUser
@@ -71,5 +73,25 @@ module.exports = cds.service.impl(async function () {
     }
 
     req.reply("Usuario actualizado con éxito");
+  });
+
+  // Lógica para deleteUsersIds
+  this.on("deleteUsersIds", async (req) => {
+    const { ids } = req.data; // Esperamos que 'ids' sea un array de IDs
+
+    // Verificar que se haya proporcionado un array de IDs
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return req.error(400, "Se debe proporcionar un array de IDs válido.");
+    }
+
+    // Eliminar usuarios cuyos IDs están en el array
+    const result = await DELETE.from(Users).where({ ID: { in: ids } });
+
+    // Verificar si se eliminaron registros
+    if (result === 0) {
+      return req.error(404, "No se encontraron usuarios para eliminar.");
+    }
+
+    req.reply(`${result} usuario(s) eliminado(s) con éxito`);
   });
 });

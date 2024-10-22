@@ -15,26 +15,26 @@
         <td class="w-4 p-3">
           <div class="flex items-center">
             <input 
-              id="checkbox-table-search-{{item.id}}" 
+              id="checkbox-table-search-{{item.ID}}" 
               type="checkbox" 
               class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
               (change)="onCheckboxChange($event, item)">
-            <label for="checkbox-table-search-{{item.id}}" class="sr-only">Seleccionar</label>
+            <label for="checkbox-table-search-{{item.ID}}" class="sr-only">Seleccionar</label>
           </div>
         </td>
         <th scope="row" class="flex items-center px-4 py-2 text-gray-900">
           <div class="ml-2">
-            <div class="text-base font-semibold">{{item.name}}</div>
+            <div class="text-base font-semibold">{{item.Name}}</div>
           </div>
         </th>
-        <td class="px-4 py-2"> {{item.email}} </td>
-        <td class="px-4 py-2"> {{item.phone}} </td>
-        <td class="px-4 py-2"> {{item.age}} </td>
+        <td class="px-4 py-2"> {{item.Email}} </td>
+        <td class="px-4 py-2"> {{item.Phone}} </td>
+        <td class="px-4 py-2"> {{item.Age}} </td>
         <td class="px-4 py-2 flex items-center space-x-2">
           <button class="text-blue-600 hover:text-blue-500 transition duration-200" (click)="openModalUpdate(item)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button class="text-red-500 hover:text-red-400 transition duration-200" (click)="deleteUser(item.id)">
+          <button class="text-red-500 hover:text-red-400 transition duration-200" (click)="deleteUser(item.ID)">
             <mat-icon>delete</mat-icon>
           </button>
         </td>

@@ -14,7 +14,7 @@ import { EmptyStateComponent } from '@organisms/empty-state/empty-state.componen
 @Component({
   selector: 'app-table-user',
   standalone: true,
-  imports: [MatIconModule, CommonModule, SearchComponent,EmptyStateComponent],
+  imports: [MatIconModule, CommonModule, SearchComponent, EmptyStateComponent],
   templateUrl: './table-user.component.html',
   styleUrl: './table-user.component.scss',
 })
@@ -22,17 +22,17 @@ export class TableUserComponent implements OnInit, OnDestroy {
   users: UserInterface[] = []; // los usuarios
   filteredUsers: UserInterface[] = []; // Lista de usuarios filtrados
   selectedUsers: UserInterface[] = []; // Lista de usuarios seleccionados
-  private subscriptions: Subscription[] = []; // suscripciones 
+  private subscriptions: Subscription[] = []; // suscripciones
 
   constructor(
     private GatewayService: GatewayService,
     private searchService: SearchService,
     private DeleteUserService: DeleteUserService,
-    private ModalControllerService:ModalControllerService,
-    private UpdateUserService:UpdateUserService
+    private ModalControllerService: ModalControllerService,
+    private UpdateUserService: UpdateUserService
   ) {}
 
-  ngOnInit(): void { // inicializador de funciones
+  ngOnInit(): void {
     // Iniciar carga los usuarios
     this.loadUsers();
 
@@ -47,27 +47,32 @@ export class TableUserComponent implements OnInit, OnDestroy {
         this.cleanSelectUserDelete(); // Limpia los usuarios seleccionados y recarga la tabla
       });
 
+    // Suscribirse a los cambios en la lista de usuarios
+    const usersUpdatedSub = this.GatewayService.usersUpdated$.subscribe(() => {
+      this.loadUsers(); // Recargar la lista de usuarios cuando haya un cambio
+    });
+
     // Agregar suscripciones a la lista
-    this.subscriptions.push(searchSub, deleteUserSub);
+    this.subscriptions.push(searchSub, deleteUserSub,usersUpdatedSub);
   }
 
-  loadUsers(): void { // cargar usuarios con mensaje
-    // carga los usuarios
-    this.GatewayService.getTotalUSers()
-      .then((users) => {
-        if (users) {
-          this.users = users; // Asigna los usuarios obtenidos a la propiedad
-          this.filteredUsers = users; // Inicializa la lista filtrada con todos los usuarios
+  loadUsers() {
+    this.GatewayService.getTotalUsers().subscribe({
+      next: (users: UserInterface[]) => {
+        if (Array.isArray(users)) {
+          this.users = users; // Asegúrate de que `users` es un array
+          this.filteredUsers = users; // Inicializa la lista filtrada
         } else {
-          console.error('No se pudieron cargar los usuarios.');
+          console.error('Error: No se recibió un array de usuarios.');
         }
-      })
-      .catch((error) => {
-        console.error('Error al obtener usuarios:', error); // Manejo de errores
-      });
+      },
+      error: (error: any) => {
+        console.error('Error al obtener usuarios:', error);
+      },
+    });
   }
 
-  filterUsers(searchTerm: string): void { // buscador
+  filterUsers(searchTerm: string): void {
     // Filtra los usuarios
     if (searchTerm.trim() === '') {
       // Verifica si el término de búsqueda está vacío
@@ -82,41 +87,43 @@ export class TableUserComponent implements OnInit, OnDestroy {
 
     // Filtra los usuarios basados en el término de búsqueda
     this.filteredUsers = this.users.filter((user) =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase())
+      user.Name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }
 
-  deleteUser(id: number): void { // eliminar usuario por id
-    // elimina un usuario
-    this.GatewayService.deleteUserId(id);
-    this.loadUsers();
+  async deleteUser(id: string): Promise<void> {
+    // eliminar usuario por id
+    await this.GatewayService.deleteUserId(id);
   }
 
-  onCheckboxChange(event: any, user: UserInterface): void { // usuarios seleccionados
+  onCheckboxChange(event: any, user: UserInterface): void {
+    // usuarios seleccionados
     if (event.target.checked) {
       // Si el checkbox está marcado, agregar el usuario a la lista de seleccionados
       this.selectedUsers.push(user);
     } else {
       // Si el checkbox está desmarcado, eliminar el usuario de la lista de seleccionados
-      this.selectedUsers = this.selectedUsers.filter(u => u.id !== user.id);
+      this.selectedUsers = this.selectedUsers.filter((u) => u.ID !== user.ID);
     }
-    
+
     // Actualizar la lista de usuarios seleccionados en el servicio
     this.DeleteUserService.setUserSelected(this.selectedUsers);
   }
 
-  cleanSelectUserDelete(): void { //limpiado de seleccionados 
+  cleanSelectUserDelete(): void {
+    //limpiado de seleccionados
     // elimina varios usuarios
     this.selectedUsers = []; // Limpiar la lista de seleccionados
     this.loadUsers();
   }
 
   openModalUpdate(user: UserInterface): void {
-    this.UpdateUserService.setInfo(user); // enviamos la información del usuario 
+    this.UpdateUserService.setInfo(user); // enviamos la información del usuario
     this.ModalControllerService.openModal('edit'); // Abre el modal con los datos del usuario
   }
 
-  ngOnDestroy(): void { // Desuscribirse de todas las suscripciones al destruir el componente
+  ngOnDestroy(): void {
+    // Desuscribirse de todas las suscripciones al destruir el componente
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }
