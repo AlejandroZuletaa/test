@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 
 module.exports = async function cds_server(options) {
   const origin = process.env.ORIGINS || 'http://localhost:4200'; // Origen permitido
+  console.log(origin);
+  
 
   // Preparar la aplicación express
   const defaults = {};
