@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run start",
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "frontend/**/*.{js,ts,json,css,scss,md}": [
