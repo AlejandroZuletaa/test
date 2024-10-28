@@ -3,7 +3,7 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: .  # Apunta a la raíz del proyecto
+      context: .frontend/  # Apunta a la raíz del proyecto
       dockerfile: Dockerfile  # Usa el Dockerfile de la raíz
     ports:
       - "4005:10000"  # Mapea el puerto 10000 del contenedor al puerto 4005 de tu máquina local
@@ -14,7 +14,7 @@ services:
 
   backend:
     build:
-      context: .  # Apunta a la raíz del proyecto
+      context: ./backend/  # Apunta a la raíz del proyecto
       dockerfile: Dockerfile  # Usa el Dockerfile de la raíz
     ports:
       - "4004:8000"  # Mapea el puerto 8000 del contenedor al puerto 4004 de tu máquina local
