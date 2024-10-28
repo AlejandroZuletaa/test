@@ -3,8 +3,8 @@
   "dockerComposeFile": [
     "../docker-compose.yml"  // Apunta al docker-compose en la raíz del proyecto
   ],
-  "service": "frontend",  // Este servicio se utiliza como referencia, pero abrirá toda la raíz
-  "workspaceFolder": "/usr/src/app",  // Asegúrate de que esta ruta corresponda a la raíz del proyecto
+  "service": "frontend", // O "backend", según el servicio principal
+  "workspaceFolder": "/usr/src/app",
   "runServices": [
     "frontend",
     "backend"  // Inicia ambos servicios
@@ -21,8 +21,8 @@
     }
   },
   "forwardPorts": [
-    4005,  // Mapea el puerto 4005 para el frontend
-    4004   // Mapea el puerto 4004 para el backend
+    4005,
+    4004
   ],
   "postCreateCommand": "npm install",  // Instala las dependencias al crear el contenedor
   "remoteUser": "root"  // Utiliza el usuario root

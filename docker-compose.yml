@@ -3,19 +3,21 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: .
-      dockerfile: Dockerfile
-      target: production  # Usamos el target para el frontend
+      context: .  # Apunta a la raíz del proyecto
+      dockerfile: Dockerfile  # Usa el Dockerfile de la raíz
     ports:
-      - "4005:80"  # Para el frontend
+      - "4005:10000"  # Mapea el puerto 10000 del contenedor al puerto 4005 de tu máquina local
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/usr/src/app/frontend:delegated  # Monta el directorio del frontend para desarrollo en tiempo real
 
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile
-      target: run-backend  # Usamos el target para el backend
+      context: .  # Apunta a la raíz del proyecto
+      dockerfile: Dockerfile  # Usa el Dockerfile de la raíz
     ports:
-      - "4004:8000"  # Para el backend
+      - "4004:8000"  # Mapea el puerto 8000 del contenedor al puerto 4004 de tu máquina local
     environment:
       ORIGINS: 'http://localhost:4005'
     volumes:
