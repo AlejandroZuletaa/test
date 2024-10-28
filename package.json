@@ -7,14 +7,14 @@
     "dev:backend": "cd backend && npm run dev",
     "dev:frontend": "cd frontend && npm run start",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
-    "frontend/**/*.{js,ts,json,css,scss,md}": [
+    "./frontend/**/*.{js,ts,json,css,scss,md}": [
       "prettier --write",
       "eslint --fix"
     ],
-    "backend/**/*.{js,ts,json,css,scss,md,cds}": [
+    "./backend/**/*.{js,ts,json,css,scss,md,cds}": [
       "prettier --write",
       "eslint --fix"
     ]
@@ -24,8 +24,16 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.13.0",
+    "@typescript-eslint/eslint-plugin": "^8.11.0",
+    "@typescript-eslint/parser": "^8.11.0",
     "concurrently": "^9.0.1",
     "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.11.0",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3"
