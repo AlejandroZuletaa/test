@@ -1,29 +1,27 @@
 {
   "name": "My Dev Environment",
-  "dockerComposeFile": [
-    "../docker-compose.yml"  // Apunta al docker-compose en la raíz del proyecto
-  ],
-  "service": "frontend", // O "backend", según el servicio principal
-  "workspaceFolder": "/usr/src/app",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "workspaceFolder": "/usr/src/app", // Establece el directorio de trabajo raíz
+  "service": "",
   "runServices": [
-    "frontend",
-    "backend"  // Inicia ambos servicios
+    "frontend", // Si deseas que se inicien ambos servicios
+    "backend"
   ],
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {},  // Instala Node.js
-    "ghcr.io/devcontainers-extra/features/angular-cli:2": {}  // Instala Angular CLI
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers-extra/features/angular-cli:2": {},
+    "ghcr.io/devcontainers/features/git:1": {}
   },
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"  // Configura el terminal
-      }
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": ["dbaeumer.vscode-eslint", "msjsdiag.debugger-for-chrome"]
     }
   },
-  "forwardPorts": [
-    4005,
-    4004
-  ],
-  "postCreateCommand": "npm install",  // Instala las dependencias al crear el contenedor
-  "remoteUser": "root"  // Utiliza el usuario root
+  "forwardPorts": [4005, 4004],
+  "postCreateCommand": "cd frontend && npm install && cd ../backend && npm install",
+  "remoteUser": "root"
 }
+

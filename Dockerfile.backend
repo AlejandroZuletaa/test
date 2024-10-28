@@ -1,0 +1,23 @@
+# Usa la imagen oficial de Node.js como base
+FROM node:20
+
+# Establece el directorio de trabajo
+WORKDIR /app
+
+# Copia los archivos package.json y package-lock.json del backend
+COPY backend/package*.json ./backend/
+
+# Cambia al directorio del backend
+WORKDIR /app/backend
+
+# Instala las dependencias de la aplicación
+RUN npm install
+
+# Copia el resto de los archivos del backend
+COPY backend/ .
+
+# Expone el puerto en el que se ejecuta la aplicación (especificado en el compose)
+EXPOSE 8000
+
+# Comando para iniciar la aplicación
+CMD ["npm", "start"]
