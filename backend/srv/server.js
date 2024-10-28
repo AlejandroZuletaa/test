@@ -6,7 +6,7 @@ module.exports = async function cds_server(options) {
   const origin = process.env.ORIGINS || 'http://localhost:4200'; // Origen permitido
 
   // Preparar la aplicación express
-  const defaults = {};
+  const defaults = {}
   const o = { ...options, __proto__: defaults };
   const app = (cds.app = o.app || require("express")());
   cds.emit("bootstrap", app);
