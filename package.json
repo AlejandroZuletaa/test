@@ -10,11 +10,11 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "./frontend/**/*.{js,ts,json,css,scss,md}": [
+    "./frontend/**/*.{js,ts,css,scss,md}": [
       "prettier --write",
       "eslint --fix"
     ],
-    "./backend/**/*.{js,ts,json,css,scss,md,cds}": [
+    "./backend/**/*.{js,ts,css,scss,md,cds}": [
       "prettier --write",
       "eslint --fix"
     ]
