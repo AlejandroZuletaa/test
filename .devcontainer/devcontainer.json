@@ -1,29 +1,29 @@
 {
   "name": "My Dev Environment",
   "dockerComposeFile": [
-    "../docker-compose.yml"
+    "../docker-compose.yml"  // Apunta al docker-compose en la raíz del proyecto
   ],
-  "service": "frontend", // O "backend", según el servicio principal
-  "workspaceFolder": "/app",
+  "service": "frontend",  // Este servicio se utiliza como referencia, pero abrirá toda la raíz
+  "workspaceFolder": "/usr/src/app",  // Asegúrate de que esta ruta corresponda a la raíz del proyecto
   "runServices": [
     "frontend",
-    "backend"
+    "backend"  // Inicia ambos servicios
   ],
   "features": {
-    "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers-extra/features/angular-cli:2": {}
+    "ghcr.io/devcontainers/features/node:1": {},  // Instala Node.js
+    "ghcr.io/devcontainers-extra/features/angular-cli:2": {}  // Instala Angular CLI
   },
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/bin/bash"  // Configura el terminal
       }
     }
   },
   "forwardPorts": [
-    3000,
-    8000
+    4005,  // Mapea el puerto 4005 para el frontend
+    4004   // Mapea el puerto 4004 para el backend
   ],
-  "postCreateCommand": "npm install",
-  "remoteUser": "root"
+  "postCreateCommand": "npm install",  // Instala las dependencias al crear el contenedor
+  "remoteUser": "root"  // Utiliza el usuario root
 }
