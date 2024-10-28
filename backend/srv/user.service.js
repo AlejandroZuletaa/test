@@ -1,5 +1,4 @@
 const cds = require("@sap/cds");
-const cors = require("cors");
 
 module.exports = cds.service.impl(async function () {
   const { Users } = this.entities;

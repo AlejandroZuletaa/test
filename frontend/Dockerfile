@@ -4,7 +4,7 @@ FROM node:20.18.0 AS build
 # Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos package.json y package-lock.json
+# Copia los archivos package.json y package-lock.json antes para optimizar el caché
 COPY package*.json ./
 
 # Instala las dependencias de la aplicación

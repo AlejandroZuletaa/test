@@ -13,8 +13,8 @@ RUN npm install
 # Copia el resto de los archivos de la aplicación
 COPY . .
 
-# Expone el puerto en el que se ejecuta la aplicación
-EXPOSE 8001
+# Expone el puerto en el que se ejecuta la aplicación (especificado en el compose)
+EXPOSE 8000
 
 # Comando para iniciar la aplicación
 CMD ["npm", "start"]
