@@ -3,26 +3,26 @@ version: '3.8'
 services:
   frontend:
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .  # Apunta a la raíz del proyecto
+      dockerfile: Dockerfile  # Usa el Dockerfile de la raíz
     ports:
-      - "4005:80"  # Mapea el puerto 80 del contenedor al puerto 4005 de tu máquina local
+      - "4005:10000"  # Mapea el puerto 10000 del contenedor al puerto 4005 de tu máquina local
     depends_on:
       - backend
     volumes:
-      - ./frontend:/app:delegated  # Para desarrollo en tiempo real
+      - ./frontend:/usr/src/app/frontend:delegated  # Monta el directorio del frontend para desarrollo en tiempo real
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .  # Apunta a la raíz del proyecto
+      dockerfile: Dockerfile  # Usa el Dockerfile de la raíz
     ports:
       - "4004:8000"  # Mapea el puerto 8000 del contenedor al puerto 4004 de tu máquina local
     environment:
       ORIGINS: 'http://localhost:4005'
     volumes:
-      - ./backend:/app:delegated  # Monta el directorio del backend para desarrollo en tiempo real
-      - ./backend/db.sqlite:/app/db.sqlite  # Monta el archivo de la base de datos SQLite
-      - ./backend/db.sqlite-shm:/app/db.sqlite-shm  # Opcionalmente monta el archivo shm
-      - ./backend/db.sqlite-wal:/app/db.sqlite-wal  # Opcionalmente monta el archivo wal
+      - ./backend:/usr/src/app/backend:delegated  # Monta el directorio del backend para desarrollo en tiempo real
+      - ./backend/db.sqlite:/usr/src/app/db.sqlite  # Monta el archivo de la base de datos SQLite
+      - ./backend/db.sqlite-shm:/usr/src/app/db.sqlite-shm  # Opcionalmente monta el archivo shm
+      - ./backend/db.sqlite-wal:/usr/src/app/db.sqlite-wal  # Opcionalmente monta el archivo wal
       - ~/.ssh:/root/.ssh:ro  # Monta tu configuración de SSH local
