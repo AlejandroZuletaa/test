@@ -10,6 +10,8 @@ services:
       - .:/app  # Monta el directorio actual
       - ~/.ssh:/root/.ssh:ro  # Monta las claves SSH en modo lectura
       - ~/.vscode:/root/.vscode:ro  # Monta la configuración de VSCode en modo lectura
+      - ~/.vscode/extensions:/root/.vscode/extensions:ro  # Monta las extensiones de VSCode
+
 
   # Servicio de frontend para producción
   frontend:

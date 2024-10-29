@@ -29,7 +29,7 @@
       ]
     }
   },
-  "forwardPorts": [4005, 4004], // Puertos que deseas exponer
+  "forwardPorts": [4200, 8000], // Puertos que deseas exponer
   "remoteUser": "root", // Usuario remoto dentro del contenedor
   "shutdownAction": "none" // Evita el apagado automático del contenedor al cerrar VS Code
 }
