@@ -5,7 +5,7 @@ FROM node:20
 WORKDIR /app
 
 # Exposición de puertos del contenedor de desarrollo
-EXPOSE 80 8000
+EXPOSE 10000 10000
 
 # Comando por defecto para que el contenedor no se cierre inmediatamente
 CMD ["tail", "-f", "/dev/null"]

@@ -39,6 +39,6 @@ module.exports = async function cds_server(options) {
   await cds.emit('served', cds.services);
 
   // Iniciar el servidor http
-  const port = o.port || process.env.PORT || 4004;
+  const port = o.port || process.env.PORT || 8000;
   return (app.server = app.listen(port));
 };

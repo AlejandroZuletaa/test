@@ -7,10 +7,7 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash", // Configura el shell por defecto
-        "editor.formatOnSave": true, // Formatea automáticamente al guardar
-        "typescript.tsdk": "/node_modules/typescript/lib", // Ruta al SDK de TypeScript
-        "typescript.suggest.autoImports": true // Activa auto-imports en TypeScript
+        "terminal.integrated.shell.linux": "/bin/bash"
       },
       "extensions": [
         "dbaeumer.vscode-eslint", // Extensión para ESLint

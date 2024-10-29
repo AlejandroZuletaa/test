@@ -17,7 +17,7 @@ services:
       context: ./frontend  # Contexto para la construcción de la imagen del frontend
       dockerfile: Dockerfile.develop  # Archivo Docker para el frontend
     ports:
-      - '4005:80'  # Expone el puerto 80 del contenedor en el puerto 4005 del host
+      - '4200:4200'  # Expone el puerto 80 del contenedor en el puerto 4005 del host
     volumes:
       - ./frontend:/app/frontend:delegated  # Asegúrate de que esté apuntando a la ruta correcta
     command: ['npm','run','start']
@@ -28,9 +28,9 @@ services:
       context: ./backend  # Contexto para la construcción de la imagen del backend
       dockerfile: Dockerfile  # Archivo Docker para el backend
     ports:
-      - '4004:8000'  # Expone el puerto 8000 del contenedor en el puerto 4004 del host
+      - '8000:8000'  # Expone el puerto 8000 del contenedor en el puerto 4004 del host
     environment:
-      ORIGINS: 'http://localhost:4005'  # Variable de entorno para orígenes permitidos
+      ORIGINS: 'http://localhost:4200'  # Variable de entorno para orígenes permitidos
     volumes:
       - ./backend:/app/backend:delegated  # Monta el backend
       - ./backend/db.sqlite:/app/backend/db.sqlite  # Monta la base de datos SQLite
