@@ -1,27 +1,24 @@
 {
-  "name": "My Dev Environment",
-  "dockerComposeFile": ["../docker-compose.yml"],
-  "workspaceFolder": "/usr/src/app", // Establece el directorio de trabajo raíz
-  "service": "",
-  "runServices": [
-    "frontend", // Si deseas que se inicien ambos servicios
-    "backend"
-  ],
-  "features": {
-    "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers-extra/features/angular-cli:2": {},
-    "ghcr.io/devcontainers/features/git:1": {}
-  },
+  "name": "Mi Proyecto Full-Stack",
+  "dockerComposeFile": ["../docker-compose.yml"], // Apunta al archivo docker-compose
+  "service": "devcontainer", // El servicio que se abrirá por defecto
+  "workspaceFolder": "/app", // Carpeta de trabajo dentro del contenedor
+
   "customizations": {
     "vscode": {
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
+        "terminal.integrated.shell.linux": "/bin/bash", // Configura el shell por defecto
+        "editor.formatOnSave": true // Formatea automáticamente al guardar
       },
-      "extensions": ["dbaeumer.vscode-eslint", "msjsdiag.debugger-for-chrome"]
+      "extensions": [
+        "dbaeumer.vscode-eslint", // Extensión para ESLint
+        "esbenp.prettier-vscode", // Extensión para Prettier
+        "ms-azuretools.vscode-docker", // Extensión de Docker
+        "angular.ng-template" // Extensión para Angular
+      ]
     }
   },
-  "forwardPorts": [4005, 4004],
-  "postCreateCommand": "cd frontend && npm install && cd ../backend && npm install",
-  "remoteUser": "root"
+  "forwardPorts": [4005, 4004], // Puertos que deseas exponer
+  "remoteUser": "root", // Usuario remoto dentro del contenedor
+  "shutdownAction": "none" // Evita el apagado automático del contenedor al cerrar VS Code
 }
-

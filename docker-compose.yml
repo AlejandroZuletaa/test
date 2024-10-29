@@ -1,29 +1,35 @@
-version: '3.8'
+version: '3.9'
 
 services:
+  # Servicio principal de desarrollo que montará la raíz del proyecto
+  devcontainer:
+    build:
+      context: .  # Contexto para la construcción de la imagen
+      dockerfile: Dockerfile  # Archivo Docker para este servicio
+    volumes:
+      - .:/app  # Monta el directorio actual
+      - ~/.ssh:/root/.ssh:ro  # Monta las claves SSH en modo lectura
+      - ~/.vscode:/root/.vscode:ro  # Monta la configuración de VSCode en modo lectura
+
+  # Servicio de frontend para producción
   frontend:
     build:
-      context: . # Apunta a la raíz del proyecto
-      dockerfile: Dockerfile.frontend # Usa el Dockerfile específico para el frontend
+      context: ./frontend  # Contexto para la construcción de la imagen del frontend
+      dockerfile: Dockerfile  # Archivo Docker para el frontend
     ports:
-      - '4005:10000' # Mapea el puerto 10000 del contenedor al puerto 4005 de tu máquina local
-    depends_on:
-      - backend
+      - '4005:80'  # Expone el puerto 80 del contenedor en el puerto 4005 del host
     volumes:
-      - ./frontend:/usr/src/app/frontend:delegated # Monta el directorio del frontend para desarrollo en tiempo real
+      - ./frontend:/app/frontend:delegated  # Asegúrate de que esté apuntando a la ruta correcta
 
+  # Servicio de backend para producción
   backend:
     build:
-      context: . # Apunta a la raíz del proyecto
-      dockerfile: Dockerfile.backend # Usa el Dockerfile específico para el backend
+      context: ./backend  # Contexto para la construcción de la imagen del backend
+      dockerfile: Dockerfile  # Archivo Docker para el backend
     ports:
-      - '4004:8000' # Mapea el puerto 8000 del contenedor al puerto 4004 de tu máquina local
+      - '4004:8000'  # Expone el puerto 8000 del contenedor en el puerto 4004 del host
     environment:
-      ORIGINS: 'http://localhost:4005'
+      ORIGINS: 'http://localhost:4005'  # Variable de entorno para orígenes permitidos
     volumes:
-      - ./backend:/usr/src/app/backend:delegated # Monta el directorio del backend para desarrollo en tiempo real
-      - ./backend/db.sqlite:/usr/src/app/db.sqlite # Monta el archivo de la base de datos SQLite
-      - ./backend/db.sqlite-shm:/usr/src/app/db.sqlite-shm # Opcionalmente monta el archivo shm
-      - ./backend/db.sqlite-wal:/usr/src/app/db.sqlite-wal # Opcionalmente monta el archivo wal
-      - ~/.ssh:/root/.ssh:ro # Configuración SSH
-      - ~/.vscode:/root/.vscode:ro # Configuración de VSCode
+      - ./backend:/app/backend:delegated  # Monta el backend
+      - ./backend/db.sqlite:/app/backend/db.sqlite  # Monta la base de datos SQLite
