@@ -5,7 +5,6 @@ service UserService @(impl: './user.service') {
     
     // Proyección de la entidad Users en el servicio
     entity Users as projection on UsersDb;
-
     // Definición de la acción registerUser
     action registerUser(
         Name: String, 
@@ -15,7 +14,7 @@ service UserService @(impl: './user.service') {
     ) returns String;
 
     // Definición de la acción deleteUser por ID
-    action deleteUser(ID: UUID) returns String;
+    action deleteUser(ID: String) returns String;
 
     // Definición de la acción getAllUsers
     action getAllUsers() returns array of Users;

@@ -16,10 +16,12 @@
     "@cap-js/cds-typer": ">=0.1",
     "@cap-js/cds-types": "^0.6",
     "@cap-js/sqlite": "^1",
-    "@types/node": "^20",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.17.2",
     "@types/uuid": "^10.0.0",
     "nodemon": "^3.1.7",
-    "typescript": "^5"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.3"
   },
   "cds": {
     "requires": {
@@ -33,7 +35,10 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "dev": "nodemon --watch srv --watch db --exec cds-serve -e cds,js,json,ts,routes.cds,cds",
+    "dev:debug": "nodemon --watch srv --watch db --exec node --inspect -r ts-node/register srv/app.ts",
+    "dev": "nodemon --watch srv --watch db --exec ts-node srv/app.ts",
+    "dev:js": "nodemon --watch srv --watch db --exec cds-serve -e cds,js,json,ts,routes.cds,cds",
+
     "watch": "cds-ts w"
   },
   "imports": {

@@ -8,25 +8,7 @@
     "vscode": {
       "settings": {
         "terminal.integrated.shell.linux": "/bin/zsh"
-      },
-      "extensions": [
-        "dbaeumer.vscode-eslint", // Extensión para ESLint
-        "esbenp.prettier-vscode", // Extensión para Prettier
-        "ms-azuretools.vscode-docker", // Extensión de Docker
-        "angular.ng-template", // Extensión para Angular
-        "SAP-Developer-Relations.cds", // SAP CDS Language Support
-        "ritwickdey.LiveServer", // Soporte para Sass
-        "bradgashler.tailwindcss-intellisense", // IntelliSense para Tailwind CSS
-        "eg2.vscode-npm-script", // Auto import
-        "aaron-bond.better-comments", // Mejoras en los comentarios
-        "streetsidesoftware.code-spell-checker", // Corrector ortográfico
-        "GistHub.gist", // CodeSnap
-        "eamodio.gitlens", // GitLens
-        "vittorioromeo.image-preview", // Vista previa de imágenes
-        "mhutchie.git-graph", // Visualizador de gráficos de Git
-        "DavidAnson.vscode-markdownlint", // Lint para Markdown
-        "streetsidesoftware.code-spell-checker-spanish" // Corrector ortográfico en español
-      ]
+      }
     }
   },
   "forwardPorts": [4200, 8000], // Puertos que deseas exponer

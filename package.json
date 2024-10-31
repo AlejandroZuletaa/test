@@ -14,7 +14,7 @@
       "prettier --write",
       "eslint --fix"
     ],
-    "./backend/**/*.{js,ts,css,scss,md,cds}": [
+    "./backend/**/*.{js,ts,css,scss,md}": [
       "prettier --write",
       "eslint --fix"
     ]
